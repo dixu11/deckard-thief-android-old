@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class GameView extends ApplicationAdapter {
@@ -51,6 +52,15 @@ public class GameView extends ApplicationAdapter {
         batch.begin();
         batch.draw(bucketImage, bucket.x, bucket.y);
         batch.end();
+
+        if (Gdx.input.isTouched()) {
+            Vector3 touchPos = new Vector3();
+            touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+            camera.unproject(touchPos);
+            bucket.x = touchPos.x - 64 / 2;
+        }
+
+
     }
 
     @Override
