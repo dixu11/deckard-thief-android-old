@@ -2,6 +2,7 @@ package dixu.deckard;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -56,10 +57,16 @@ public class GameView extends ApplicationAdapter {
         if (Gdx.input.isTouched()) {
             Vector3 touchPos = new Vector3();
             touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-            camera.unproject(touchPos);
+            camera.unproject(touchPos); // convert to "our" coordinate system
             bucket.x = touchPos.x - 64 / 2;
         }
 
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            bucket.x -= 200 * Gdx.graphics.getDeltaTime(); //200 px/sec delta time = second %?
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            bucket.x += 200 * Gdx.graphics.getDeltaTime(); //200 px/sec delta time = second %?
+        }
 
     }
 
