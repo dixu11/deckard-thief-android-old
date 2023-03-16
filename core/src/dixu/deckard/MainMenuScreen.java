@@ -22,10 +22,10 @@ public class MainMenuScreen implements Screen {
         ScreenUtils.clear(0, 0, 2f, 1);
 
         camera.update();
-        game.getBath().begin();
-        game.getFont().draw(game.getBath(), "Welcome to Drop!", 100, 150); //could be replaced with convenience method
-        game.getFont().draw(game.getBath(), "Tap anywhere to begin!", 100, 100);
-        game.getBath().end();
+        game.getBatch().begin();
+        game.getFont().draw(game.getBatch(), "Welcome to Drop!", 100, 150); //could be replaced with convenience method
+        game.getFont().draw(game.getBatch(), "Tap anywhere to begin!", 100, 100);
+        game.getBatch().end();
 
         if (Gdx.input.isTouched()) {
             game.setScreen(new GameScreen(game));

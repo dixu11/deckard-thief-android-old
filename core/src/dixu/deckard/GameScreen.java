@@ -21,10 +21,10 @@ public class GameScreen implements Screen {
     private final Drop game;
 
     private OrthographicCamera camera;
-    private SpriteBatch batch;
     private Rectangle bucket;
     private Array<Rectangle> raindrops;
     private long lastDropTime;
+    private int dropsGathered;
     private Texture dropImage;
     private Texture bucketImage;
     private Sound dropSound;
@@ -34,7 +34,6 @@ public class GameScreen implements Screen {
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
-        batch = new SpriteBatch();
 
         bucket = new Rectangle(
                 800 / 2 - 64 / 2,
@@ -72,9 +71,11 @@ public class GameScreen implements Screen {
         ScreenUtils.clear(0, 0, 0.2f, 1);
 
         camera.update();//if we change something in camera
+        SpriteBatch batch = game.getBatch();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(bucketImage, bucket.x, bucket.y);
+        game.getFont().draw(batch, "Drops Collected: " + dropsGathered, 0, 480);
         raindrops.forEach(drop->batch.draw(dropImage,drop.x,drop.y)); //todo risercz
         batch.end();
 
@@ -112,6 +113,7 @@ public class GameScreen implements Screen {
             if (raindrop.overlaps(bucket)) {
                 dropSound.play();
                 iter.remove();
+                dropsGathered++;
             }
         }
     }
@@ -147,6 +149,5 @@ public class GameScreen implements Screen {
         bucketImage.dispose();
         dropSound.dispose();
         rainMusic.dispose();
-        batch.dispose();
     }
 }

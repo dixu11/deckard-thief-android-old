@@ -21,9 +21,10 @@ public class Drop extends Game {
     public void dispose() {
         batch.dispose();
         font.dispose();
+        screen.dispose();
     }
 
-    public SpriteBatch getBath() {
+    public SpriteBatch getBatch() {
         return batch;
     }
 
